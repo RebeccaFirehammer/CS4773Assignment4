@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import movie.model.Movie;
 import javafx.fxml.Initializable;
 
 public class MovieController extends Observable implements Initializable {
@@ -39,7 +40,7 @@ public class MovieController extends Observable implements Initializable {
     private Slider ratingSlider;
 
     public MovieController() {
-   
+    	Movie movieInstance = Movie.getInstance();
     }
     
 	@Override

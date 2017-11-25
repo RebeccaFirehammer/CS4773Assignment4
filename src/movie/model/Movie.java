@@ -4,18 +4,23 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Movie implements Observer{
-	private String movieTitle;
-	private int releaseYear;
-	private String director;
-	private String writer;
-	private int rating;
 	
-	public Movie(String title, int releaseYear, String director, String writer, int rating) {
-		this.movieTitle = title;
-		this.releaseYear = releaseYear;
-		this.director = director;
-		this.writer = writer;
-		this.rating = rating;
+	private static Movie movieInstance = null;
+	private static String movieTitle;
+	private static int releaseYear;
+	private static String director;
+	private static String writer;
+	private static int rating;
+	
+	public Movie() {
+
+	}
+	
+	public static Movie getInstance(){
+		if(movieInstance == null){
+			movieInstance = new Movie();
+		}
+		return movieInstance;
 	}
 
 	public String getMovieTitle() {
