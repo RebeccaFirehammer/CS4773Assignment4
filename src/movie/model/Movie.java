@@ -1,6 +1,9 @@
 package movie.model;
 
-public class Movie {
+import java.util.Observable;
+import java.util.Observer;
+
+public class Movie implements Observer{
 	private String movieTitle;
 	private int releaseYear;
 	private String director;
@@ -53,5 +56,11 @@ public class Movie {
 
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 }
