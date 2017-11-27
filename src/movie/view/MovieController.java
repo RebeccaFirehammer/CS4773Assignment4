@@ -38,9 +38,11 @@ public class MovieController extends Observable implements Initializable {
 
     @FXML
     private Slider ratingSlider;
+    
+    private Movie movieInstance;
 
     public MovieController() {
-    	Movie movieInstance = Movie.getInstance();
+    	movieInstance = Movie.getInstance();
     }
     
 	@Override

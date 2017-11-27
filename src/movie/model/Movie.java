@@ -1,18 +1,15 @@
 package movie.model;
 
-import java.util.Observable;
-import java.util.Observer;
-
-public class Movie implements Observer{
+public class Movie extends MovieObserver{
 	
-	private static Movie movieInstance = null;
+	private static Movie movieInstance;
 	private static String movieTitle;
 	private static int releaseYear;
 	private static String director;
 	private static String writer;
 	private static int rating;
 	
-	public Movie() {
+	private Movie() {
 
 	}
 	
@@ -62,10 +59,12 @@ public class Movie implements Observer{
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+	
+	public void registration(){
+		//Forward the calls to MovieObserver.update()
+	}
+	
+	public void unregistration(){
+		//Forward the calls to MovieObserver.update()
 	}
 }
