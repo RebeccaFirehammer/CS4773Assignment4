@@ -52,7 +52,8 @@ public class MovieController extends Observable implements Initializable {
 	
 	public void addTextFieldListeners(){
     	releaseYear.textProperty().addListener((obs, oldText, newText) -> {
-    		if(releaseYear.getText().matches("^\\d+$")) {
+    		if(releaseYear.getText().matches("^\\d+$")
+				|| releaseYear.getText().equals("")) {
     			releaseYear.setText(newText);
     		}
     		else {
