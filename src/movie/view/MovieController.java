@@ -47,7 +47,19 @@ public class MovieController extends Observable implements Initializable {
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		addTextFieldListeners();
+	}
+	
+	public void addTextFieldListeners(){
+    	releaseYear.textProperty().addListener((obs, oldText, newText) -> {
+    		if(releaseYear.getText().matches("^\\d+$")) {
+    			releaseYear.setText(newText);
+    		}
+    		else {
+    			releaseYear.setText(oldText);
+    			System.err.println("Invalid release year, only numeric values are allowed.");
+    		}
+    	});
 	}
 
 }

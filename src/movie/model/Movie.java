@@ -15,7 +15,11 @@ public class Movie extends MovieObserver{
 	
 	public static Movie getInstance(){
 		if(movieInstance == null){
-			movieInstance = new Movie();
+			synchronized(Movie.class){
+				if(movieInstance == null){
+					movieInstance = new Movie();
+				}
+			}
 		}
 		return movieInstance;
 	}
