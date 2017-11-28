@@ -105,5 +105,4 @@ public class MovieController extends Observable implements Initializable {
 		        }
 		    });
 	 }
-	 
 }
