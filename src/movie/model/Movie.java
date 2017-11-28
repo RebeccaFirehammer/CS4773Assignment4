@@ -1,7 +1,10 @@
 package movie.model;
 
-public class Movie extends MovieObserver{
+import java.util.Observable;
+
+public class Movie extends Observable{
 	
+	private MovieObserver movObs;
 	private static Movie movieInstance;
 	private static String movieTitle;
 	private static int releaseYear;
@@ -28,8 +31,12 @@ public class Movie extends MovieObserver{
 		return movieTitle;
 	}
 
-	public void setMovieTitle(String movieTitle) {
-		this.movieTitle = movieTitle;
+	public void setMovieTitle(String movieTitle) {	
+		Movie.movieTitle = movieTitle;
+		System.out.println("Setting movie title to " + Movie.movieTitle);
+		setChanged();
+		//movObs.update(this, this);
+		notifyObservers();
 	}
 
 	public int getReleaseYear() {
@@ -37,7 +44,9 @@ public class Movie extends MovieObserver{
 	}
 
 	public void setReleaseYear(int releaseYear) {
-		this.releaseYear = releaseYear;
+		Movie.releaseYear = releaseYear;
+		setChanged();
+		notifyObservers();
 	}
 
 	public String getDirector() {
@@ -45,7 +54,9 @@ public class Movie extends MovieObserver{
 	}
 
 	public void setDirector(String director) {
-		this.director = director;
+		Movie.director = director;
+		setChanged();
+		notifyObservers();
 	}
 
 	public String getWriter() {
@@ -53,7 +64,9 @@ public class Movie extends MovieObserver{
 	}
 
 	public void setWriter(String writer) {
-		this.writer = writer;
+		Movie.writer = writer;
+		setChanged();
+		notifyObservers();
 	}
 
 	public int getRating() {
@@ -61,14 +74,8 @@ public class Movie extends MovieObserver{
 	}
 
 	public void setRating(int rating) {
-		this.rating = rating;
-	}
-	
-	public void registration(){
-		//Forward the calls to MovieObserver.update()
-	}
-	
-	public void unregistration(){
-		//Forward the calls to MovieObserver.update()
+		Movie.rating = rating;
+		setChanged();
+		notifyObservers();
 	}
 }

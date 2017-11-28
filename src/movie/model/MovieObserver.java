@@ -7,10 +7,12 @@ import java.util.Observer;
 
 public class MovieObserver implements Observer{
 	
+	private Movie movieInstance;
+	
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void update(Observable observable, Object arg) {
+		movieInstance = (Movie) observable;
+		System.out.println(movieInstance.getMovieTitle());
 	}
 
 }

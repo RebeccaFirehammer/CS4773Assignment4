@@ -50,7 +50,14 @@ public class MovieController extends Observable implements Initializable {
 		addTextFieldListeners();
 	}
 	
-	public void addTextFieldListeners(){
+	public void addTextFieldListeners() {
+		addReleaseYearListener();
+		addMovieFieldListener();
+		addDirectorListener();
+		addWriterListener();	
+	}
+	
+	public void addReleaseYearListener(){
     	releaseYear.textProperty().addListener((obs, oldText, newText) -> {
     		if(releaseYear.getText().matches("^\\d+$")
 				|| releaseYear.getText().equals("")) {
@@ -62,5 +69,25 @@ public class MovieController extends Observable implements Initializable {
     		}
     	});
 	}
-
+	 
+	 private void addMovieFieldListener(){
+	 	movieTitle.textProperty().addListener((obs, oldText, newText) -> {
+	 		movieTitleString = movieTitle.getText();
+	 		movieInstance.setMovieTitle(movieTitleString);
+	 	});
+	 }
+	 
+	 private void addDirectorListener(){
+	 	director.textProperty().addListener((obs, oldText, newText) -> {
+	 		directorString = director.getText();
+	 		movieInstance.setDirector(directorString);
+	 	});
+	 }
+	 
+	 private void addWriterListener(){
+	 	writer.textProperty().addListener((obs, oldText, newText) -> {
+	 		writerString = writer.getText();
+	 		movieInstance.setWriter(writerString);
+	 	});
+	 }
 }
