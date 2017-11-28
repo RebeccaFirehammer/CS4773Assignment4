@@ -3,6 +3,9 @@ package movie.view;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -55,6 +58,7 @@ public class MovieController extends Observable implements Initializable {
 		addMovieFieldListener();
 		addDirectorListener();
 		addWriterListener();	
+		addRatingListener();
 	}
 	
 	public void addReleaseYearListener(){
@@ -91,5 +95,14 @@ public class MovieController extends Observable implements Initializable {
 	 		writerString = writer.getText();
 	 		movieInstance.setWriter(writerString);
 	 	});
+	 }
+	 
+	 private void addRatingListener(){
+		 ratingSlider.valueProperty().addListener(new ChangeListener<Object>() {
+		        public void changed(ObservableValue<?> movieStat, Object oldPropertyValue, Object newPropertyValue) {
+		        	ratingText.textProperty().setValue(String.valueOf((int) ratingSlider.getValue()));
+		        	movieInstance.setRating(Integer.parseInt((ratingText.getText())));
+		        }
+		    });
 	 }
 }
