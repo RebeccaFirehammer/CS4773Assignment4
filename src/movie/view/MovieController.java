@@ -62,6 +62,8 @@ public class MovieController extends Observable implements Initializable {
     		if(releaseYear.getText().matches("^\\d+$")
 				|| releaseYear.getText().equals("")) {
     			releaseYear.setText(newText);
+    			releaseYearInt = Integer.parseInt(newText);
+    			movieInstance.setReleaseYear(releaseYearInt);
     		}
     		else {
     			releaseYear.setText(oldText);
