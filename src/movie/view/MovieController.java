@@ -2,6 +2,7 @@ package movie.view;
 
 import java.net.URL;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -11,9 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import movie.model.Movie;
+import movie.model.MovieObservable;
 import javafx.fxml.Initializable;
 
-public class MovieController extends Observable implements Initializable {
+public class MovieController implements Initializable, Observer {
     @FXML
     private TextField movieTitle; 
     
@@ -36,17 +38,28 @@ public class MovieController extends Observable implements Initializable {
 
     @FXML
     private Label ratingText;
-    
-    private int ratingInt;
 
     @FXML
     private Slider ratingSlider;
     
-    private Movie movieInstance;
+    private MovieObservable movieObserver;
 
-    public MovieController() {
-    	movieInstance = Movie.getInstance();
+    public MovieController(MovieObservable movieObserver) {
+    	this.movieObserver = movieObserver;
     }
+    
+	@Override
+	public void update(Observable o, Object obj) {
+		if(o instanceof MovieObservable){
+			Movie movie = ((MovieObservable) o).getMovieInstance();
+			movieTitle.setText(movie.getMovieTitle());
+			releaseYear.setText(Integer.toString(movie.getReleaseYear()));
+			writer.setText(movie.getWriter());
+			director.setText(movie.getDirector());
+			ratingSlider.setValue(movie.getRating());
+		}
+		
+	}
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -66,8 +79,11 @@ public class MovieController extends Observable implements Initializable {
     		if(releaseYear.getText().matches("^\\d+$")
 				|| releaseYear.getText().equals("")) {
     			releaseYear.setText(newText);
-    			releaseYearInt = Integer.parseInt(newText);
-    			movieInstance.setReleaseYear(releaseYearInt);
+    			if(!releaseYear.getText().equals(""))
+    				releaseYearInt = Integer.parseInt(newText);
+    			else
+    				releaseYearInt = 0;
+    			movieObserver.setReleaseYear(releaseYearInt);
     		}
     		else {
     			releaseYear.setText(oldText);
@@ -79,21 +95,21 @@ public class MovieController extends Observable implements Initializable {
 	 private void addMovieFieldListener(){
 	 	movieTitle.textProperty().addListener((obs, oldText, newText) -> {
 	 		movieTitleString = movieTitle.getText();
-	 		movieInstance.setMovieTitle(movieTitleString);
+	 		movieObserver.setMovieTitle(movieTitleString);
 	 	});
 	 }
 	 
 	 private void addDirectorListener(){
 	 	director.textProperty().addListener((obs, oldText, newText) -> {
 	 		directorString = director.getText();
-	 		movieInstance.setDirector(directorString);
+	 		movieObserver.setDirector(directorString);
 	 	});
 	 }
 	 
 	 private void addWriterListener(){
 	 	writer.textProperty().addListener((obs, oldText, newText) -> {
 	 		writerString = writer.getText();
-	 		movieInstance.setWriter(writerString);
+	 		movieObserver.setWriter(writerString);
 	 	});
 	 }
 	 
@@ -101,7 +117,7 @@ public class MovieController extends Observable implements Initializable {
 		 ratingSlider.valueProperty().addListener(new ChangeListener<Object>() {
 		        public void changed(ObservableValue<?> movieStat, Object oldPropertyValue, Object newPropertyValue) {
 		        	ratingText.textProperty().setValue(String.valueOf((int) ratingSlider.getValue()));
-		        	movieInstance.setRating(Integer.parseInt((ratingText.getText())));
+		        	movieObserver.setRating(Integer.parseInt((ratingText.getText())));
 		        }
 		    });
 	 }
