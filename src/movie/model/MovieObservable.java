@@ -1,9 +1,6 @@
 package movie.model;
 
 import java.util.Observable;
-import java.util.Observer;
-
-//This is the delegate that handles Movie's update function
 
 public class MovieObservable extends Observable{
 	

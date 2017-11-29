@@ -13,13 +13,12 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import movie.model.Movie;
 import movie.model.MovieObservable;
+
 import javafx.fxml.Initializable;
 
 public class MovieController implements Initializable, Observer {
     @FXML
     private TextField movieTitle; 
-    
-    private String movieTitleString;
 
     @FXML
     private TextField releaseYear;
@@ -28,13 +27,9 @@ public class MovieController implements Initializable, Observer {
     
     @FXML
     private TextField director;
-    
-    private String directorString;
 
     @FXML
     private TextField writer;
-    
-    private String writerString;
 
     @FXML
     private Label ratingText;
@@ -43,6 +38,7 @@ public class MovieController implements Initializable, Observer {
     private Slider ratingSlider;
     
     private MovieObservable movieObserver;
+
 
     public MovieController(MovieObservable movieObserver) {
     	this.movieObserver = movieObserver;
@@ -84,6 +80,7 @@ public class MovieController implements Initializable, Observer {
     			else
     				releaseYearInt = 0;
     			movieObserver.setReleaseYear(releaseYearInt);
+
     		}
     		else {
     			releaseYear.setText(oldText);
@@ -94,22 +91,19 @@ public class MovieController implements Initializable, Observer {
 	 
 	 private void addMovieFieldListener(){
 	 	movieTitle.textProperty().addListener((obs, oldText, newText) -> {
-	 		movieTitleString = movieTitle.getText();
-	 		movieObserver.setMovieTitle(movieTitleString);
+	 		movieObserver.setMovieTitle(newText);
 	 	});
 	 }
 	 
 	 private void addDirectorListener(){
 	 	director.textProperty().addListener((obs, oldText, newText) -> {
-	 		directorString = director.getText();
-	 		movieObserver.setDirector(directorString);
+	 		movieObserver.setDirector(newText);
 	 	});
 	 }
 	 
 	 private void addWriterListener(){
 	 	writer.textProperty().addListener((obs, oldText, newText) -> {
-	 		writerString = writer.getText();
-	 		movieObserver.setWriter(writerString);
+	 		movieObserver.setWriter(newText);
 	 	});
 	 }
 	 
@@ -121,4 +115,5 @@ public class MovieController implements Initializable, Observer {
 		        }
 		    });
 	 }
+
 }

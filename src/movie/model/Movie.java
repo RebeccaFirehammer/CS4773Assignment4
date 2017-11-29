@@ -3,8 +3,9 @@ package movie.model;
 import java.util.Observer;
 
 public class Movie{
-	
+
 	private MovieObservable movieObserver;
+
 	private static Movie movieInstance;
 	private static String movieTitle;
 	private static int releaseYear;
@@ -13,7 +14,11 @@ public class Movie{
 	private static int rating;
 	
 	private Movie() {
-		
+		movieTitle = "";
+		releaseYear = 0000;
+		director = "";
+		writer = "";
+		rating = 1;
 	}
 	
 	public static Movie getInstance(){
